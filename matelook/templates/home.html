@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <dt>Name: {{ user.name }}</dt>
+    <dt>Username: {{ user.username }}</dt>
+    <dt>Location: {{ user.location }}</dt>
+    <dt>Phone: {{ user.phone }}</dt>
+    <div id="form">{% include "form.html" %}</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block main %}
+    {% if 'username' in session %} 
+        {% block content %}{% endblock %}
+    {% else %}
+        <h1>Welcome to Matelook!</h1>
+        <p>Please Login or Signup to continue</p>
+        {% block login %}{% endblock %}
+    {% endif %}
+{% endblock %}
