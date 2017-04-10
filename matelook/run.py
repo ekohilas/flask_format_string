@@ -3,7 +3,6 @@ import os
 from jinja2 import evalcontextfilter, Markup, escape
 from flask import Flask, render_template, request, escape, \
         send_from_directory, g, session, redirect, url_for
-sys.path.append("")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -33,14 +32,14 @@ def index():
             user_input = request.form['query'].strip()
             user = find(session["username"])
             return render_template('home.html',
-                    user = user, string = user_input.format(user))
+                    user = user, string = user_input.format(user), version = sys.version)
 
         else:
             user = find(session["username"])
-            return render_template('home.html', user = user)
+            return render_template('home.html', user = user, version = sys.version)
     else:
         error = ''
-        return render_template('base.html', error = error)
+        return render_template('base.html', error = error, version = sys.version)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -54,7 +53,7 @@ def login():
         else:
             return redirect(url_for('login', error = "incorrect credentials"))
     else:
-        return render_template('login.html', error = error)
+        return render_template('login.html', error = error, version = sys.version)
 
 
 @app.route('/logout', methods = ['POST', 'GET'])
