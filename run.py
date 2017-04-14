@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, escape, \
         send_from_directory, g, session, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = os.urandom(12)
+app.secret_key = "f14g{c-kw3t}"# + os.urandom(12)
 
 class User():
     def __init__(self, id, name, username, password, location, phone):
@@ -17,7 +17,7 @@ class User():
         self.phone = phone
 
 default = User(0, "user", "user", "password", "null", "0400000000")
-richard = User(1, "richard", "richard", "sausage", "UNSW", "93856666")
+richard = User(1, "richard", "richard", "sausage", "UNSW", "0412345678")
 USERS = [default, richard]
 
 @app.route('/', methods=['GET', 'POST'])
@@ -28,18 +28,19 @@ def index():
             return redirect(url_for('index'))
 
     if "username" in session:
+        user = find(session["username"])
         if request.method == "POST":
             user_input = request.form['query'].strip()
-            user = find(session["username"])
+            print(user_input, file=open("log.txt", "a"))
             return render_template('home.html',
-                    user = user, user_input = user_input, string = user_input.format(user), version = sys.version)
-
+                    user = user,
+                    user_input = user_input,
+                    name = user_input.format(user),
+                    version = sys.version)
         else:
-            user = find(session["username"])
             return render_template('home.html', user = user, version = sys.version)
     else:
-        error = ''
-        return render_template('base.html', error = error, version = sys.version)
+        return render_template('base.html', error = "", version = sys.version)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
