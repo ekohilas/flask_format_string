@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Capture the f14g{...}</h2>
+<dl>
+    <div id="form">{% include "form.html" %}</div>
+    <dt>Name:
+    {% if name %}
+    {{ name }}
+    {% else %}
+    {{ user.name }}
+    {% endif %}
+    </dt>
+    <dt>Username: {{ user.username }}</dt>
+    <dt>Location: {{ user.location }}</dt>
+    <dt>Phone: {{ user.phone }}</dt>
+</dl>
+{% endblock %}

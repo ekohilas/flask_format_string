@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <title>Yarn!</title>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content">
+            {% if 'username' in session %}
+            {% block content %}{% endblock %}
+            {% else %}
+            {% block welcome %}
+            <h1>Welcome to Yarn!</h1>
+            <p>Please <a href="{{ url_for('login') }}">Login</a>
+            {% endblock %}
+            {% endif %}
+        </div>
+        <div id="footer">
+            {% block footer %}
+            <dl>
+                {% if 'username' in session %}<dt><a href="{{ url_for('logout') }}">Logout</a></dt>{% endif %}
+                {% if debug %}<dt>{{ debug }}</dt>{% endif %}
+                <dt>Created as a format string exploit example for COMP6841 by Evan Kohilas.</dt>
+                <dt>Credit to: <a href="http://lucumr.pocoo.org/2016/12/29/careful-with-str-format/">Armin Ronacher</a></dt>
+                <dt>Hosted with ❤️ on <a href="https://github.com/ekohilas/flask_format_string">github</a></dt>
+                <dt>Python {{ version }}</dt>
+            </dl>
+            {% endblock %}
+        </div>
+    </body>
+</html>
